@@ -226,6 +226,14 @@
 #define EUR_CR_SOFT_RESET_TA_RESET_MASK     0x00020000U
 #define EUR_CR_SOFT_RESET_TA_RESET_SHIFT    17
 
+/* if SGX_FEATURE_DATA_BREAKPOINTS enabled.
+ * used together with EUR_CR_EVENT_STATUS2.
+ * Status &= Enabled.
+ * Known Status defines:
+ *  EUR_CR_EVENT_STATUS2_DATA_BREAKPOINT_UNTRAPPED_MASK
+ *  EUR_CR_EVENT_STATUS2_DATA_BREAKPOINT_TRAPPED_MASK
+ * SGX_ISRHandler
+ */
 #define EUR_CR_EVENT_HOST_ENABLE2           0x0110
 #define EUR_CR_EVENT_HOST_ENABLE2_TRIG_TA_MASK 0x00000010U
 #define EUR_CR_EVENT_HOST_ENABLE2_TRIG_TA_SHIFT 4
@@ -238,6 +246,9 @@
 #define EUR_CR_EVENT_HOST_ENABLE2_DPM_TA_FREE_LOAD_MASK 0x00000001U
 #define EUR_CR_EVENT_HOST_ENABLE2_DPM_TA_FREE_LOAD_SHIFT 0
 
+/* SGX_ISRHandler
+ * same as EUR_CR_EVENT_HOST_ENABLE2
+ */
 #define EUR_CR_EVENT_HOST_CLEAR2            0x0114
 #define EUR_CR_EVENT_HOST_CLEAR2_TRIG_TA_MASK 0x00000010U
 #define EUR_CR_EVENT_HOST_CLEAR2_TRIG_TA_SHIFT 4
@@ -250,6 +261,8 @@
 #define EUR_CR_EVENT_HOST_CLEAR2_DPM_TA_FREE_LOAD_MASK 0x00000001U
 #define EUR_CR_EVENT_HOST_CLEAR2_DPM_TA_FREE_LOAD_SHIFT 0
 
+/* Same as EUR_CR_EVENT_HOST_ENABLE2
+ */
 #define EUR_CR_EVENT_STATUS2                0x0118
 #define EUR_CR_EVENT_STATUS2_TRIG_TA_MASK   0x00000010U
 #define EUR_CR_EVENT_STATUS2_TRIG_TA_SHIFT  4
@@ -262,6 +275,12 @@
 #define EUR_CR_EVENT_STATUS2_DPM_TA_FREE_LOAD_MASK 0x00000001U
 #define EUR_CR_EVENT_STATUS2_DPM_TA_FREE_LOAD_SHIFT 0
 
+/* used only on init + some disabled code.
+ * used status:
+ *   EUR_CR_EVENT_STATUS_TA_FINISHED_MASK
+ *   EUR_CR_EVENT_STATUS_PIXELBE_END_RENDER_MASK
+ *   EUR_CR_EVENT_STATUS_DPM_3D_MEM_FREE_MASK
+ */
 #define EUR_CR_EVENT_STATUS                 0x012CU
 #define EUR_CR_EVENT_STATUS_MASTER_INTERRUPT_MASK 0x80000000U
 #define EUR_CR_EVENT_STATUS_MASTER_INTERRUPT_SHIFT 31
@@ -326,6 +345,9 @@
 #define EUR_CR_EVENT_STATUS_DPM_3D_MEM_FREE_MASK 0x00000001U
 #define EUR_CR_EVENT_STATUS_DPM_3D_MEM_FREE_SHIFT 0
 
+/*
+ * read access only on init
+ */
 #define EUR_CR_EVENT_HOST_ENABLE            0x0130
 #define EUR_CR_EVENT_HOST_ENABLE_MASTER_INTERRUPT_MASK 0x80000000U
 #define EUR_CR_EVENT_HOST_ENABLE_MASTER_INTERRUPT_SHIFT 31
@@ -390,6 +412,7 @@
 #define EUR_CR_EVENT_HOST_ENABLE_DPM_3D_MEM_FREE_MASK 0x00000001U
 #define EUR_CR_EVENT_HOST_ENABLE_DPM_3D_MEM_FREE_SHIFT 0
 
+/* see EUR_CR_EVENT_HOST_ENABLE */
 #define EUR_CR_EVENT_HOST_CLEAR             0x0134
 #define EUR_CR_EVENT_HOST_CLEAR_MASTER_INTERRUPT_MASK 0x80000000U
 #define EUR_CR_EVENT_HOST_CLEAR_MASTER_INTERRUPT_SHIFT 31
@@ -454,22 +477,27 @@
 #define EUR_CR_EVENT_HOST_CLEAR_DPM_3D_MEM_FREE_MASK 0x00000001U
 #define EUR_CR_EVENT_HOST_CLEAR_DPM_3D_MEM_FREE_SHIFT 0
 
+/* not used in kernel */
 #define EUR_CR_TIMER                        0x0144
 #define EUR_CR_TIMER_VALUE_MASK             0xFFFFFFFFU
 #define EUR_CR_TIMER_VALUE_SHIFT            0
 
+/* not used in kernel */
 #define EUR_CR_EVENT_KICK1                  0x0AB0
 #define EUR_CR_EVENT_KICK1_NOW_MASK         0x000000FFU
 #define EUR_CR_EVENT_KICK1_NOW_SHIFT        0
 
+/* not used in kernel */
 #define EUR_CR_PDS_EXEC_BASE                0x0AB8
 #define EUR_CR_PDS_EXEC_BASE_ADDR_MASK      0x0FF00000U
 #define EUR_CR_PDS_EXEC_BASE_ADDR_SHIFT     20
 
+/* used on init only if SGX_FEATURE_MULTI_EVENT_KICK defined */
 #define EUR_CR_EVENT_KICK2                  0x0AC0
 #define EUR_CR_EVENT_KICK2_NOW_MASK         0x00000001U
 #define EUR_CR_EVENT_KICK2_NOW_SHIFT        0
 
+/* not used in kernel */
 #define EUR_CR_EVENT_KICKER                 0x0AC4
 #define EUR_CR_EVENT_KICKER_ADDRESS_MASK    0x0FFFFFF0U
 #define EUR_CR_EVENT_KICKER_ADDRESS_SHIFT   4
@@ -477,36 +505,44 @@
 #define EUR_CR_EVENT_KICK_NOW_MASK          0x00000001U
 #define EUR_CR_EVENT_KICK_NOW_SHIFT         0
 
+/* used by sgxutils.c for timestamping */
 #define EUR_CR_EVENT_TIMER                  0x0ACC
 #define EUR_CR_EVENT_TIMER_ENABLE_MASK      0x01000000U
 #define EUR_CR_EVENT_TIMER_ENABLE_SHIFT     24
 #define EUR_CR_EVENT_TIMER_VALUE_MASK       0x00FFFFFFU
 #define EUR_CR_EVENT_TIMER_VALUE_SHIFT      0
 
+/* not used in kernel */
 #define EUR_CR_PDS_INV0                     0x0AD0
 #define EUR_CR_PDS_INV0_DSC_MASK            0x00000001U
 #define EUR_CR_PDS_INV0_DSC_SHIFT           0
 
+/* not used in kernel */
 #define EUR_CR_PDS_INV1                     0x0AD4
 #define EUR_CR_PDS_INV1_DSC_MASK            0x00000001U
 #define EUR_CR_PDS_INV1_DSC_SHIFT           0
 
+/* not used in kernel */
 #define EUR_CR_EVENT_KICK3                  0x0AD8
 #define EUR_CR_EVENT_KICK3_NOW_MASK         0x00000001U
 #define EUR_CR_EVENT_KICK3_NOW_SHIFT        0
 
+/* not used in kernel */
 #define EUR_CR_PDS_INV3                     0x0ADC
 #define EUR_CR_PDS_INV3_DSC_MASK            0x00000001U
 #define EUR_CR_PDS_INV3_DSC_SHIFT           0
 
+/* not used in kernel */
 #define EUR_CR_PDS_INV_CSC                  0x0AE0
 #define EUR_CR_PDS_INV_CSC_KICK_MASK        0x00000001U
 #define EUR_CR_PDS_INV_CSC_KICK_SHIFT       0
 
+/* informative use only */
 #define EUR_CR_PDS_PC_BASE                  0x0B2C
 #define EUR_CR_PDS_PC_BASE_ADDRESS_MASK     0x00FFFFFFU
 #define EUR_CR_PDS_PC_BASE_ADDRESS_SHIFT    0
 
+/* XXX: Actively used in MMU and reset */
 #define EUR_CR_BIF_CTRL                     0x0C00
 #define EUR_CR_BIF_CTRL_NOREORDER_MASK      0x00000001U
 #define EUR_CR_BIF_CTRL_NOREORDER_SHIFT     0
@@ -533,6 +569,7 @@
 #define EUR_CR_BIF_CTRL_MMU_BYPASS_USE_MASK 0x00008000U
 #define EUR_CR_BIF_CTRL_MMU_BYPASS_USE_SHIFT 15
 
+/* used for reset? */
 #define EUR_CR_BIF_INT_STAT                 0x0C04
 #define EUR_CR_BIF_INT_STAT_FAULT_MASK      0x00003FFFU
 #define EUR_CR_BIF_INT_STAT_FAULT_SHIFT     0
@@ -541,38 +578,51 @@
 #define EUR_CR_BIF_INT_STAT_FLUSH_COMPLETE_MASK 0x00008000U
 #define EUR_CR_BIF_INT_STAT_FLUSH_COMPLETE_SHIFT 15
 
+/* sBifFault.uiAddr */
 #define EUR_CR_BIF_FAULT                    0x0C08
 #define EUR_CR_BIF_FAULT_SB_MASK            0x000001F0U
 #define EUR_CR_BIF_FAULT_SB_SHIFT           4
 #define EUR_CR_BIF_FAULT_ADDR_MASK          0x0FFFF000U
 #define EUR_CR_BIF_FAULT_ADDR_SHIFT         12
 
+/* used for some kind of workaround in MMU.
+ * psDevInfo->sBRN22997PDDevPAddr.uiAddr
+ * on reset: "Initialise the BIF directory list"
+ */
 #define EUR_CR_BIF_DIR_LIST_BASE0           0x0C84
 #define EUR_CR_BIF_DIR_LIST_BASE0_ADDR_MASK 0xFFFFF000U
 #define EUR_CR_BIF_DIR_LIST_BASE0_ADDR_SHIFT 12
 
+/* not used in kernel */
 #define EUR_CR_BIF_TA_REQ_BASE              0x0C90
 #define EUR_CR_BIF_TA_REQ_BASE_ADDR_MASK    0x0FF00000U
 #define EUR_CR_BIF_TA_REQ_BASE_ADDR_SHIFT   20
 
+/* used on reset.
+ * "Wait for DC invalidate failed."
+ */
 #define EUR_CR_BIF_MEM_REQ_STAT             0x0CA8
 #define EUR_CR_BIF_MEM_REQ_STAT_READS_MASK  0x000000FFU
 #define EUR_CR_BIF_MEM_REQ_STAT_READS_SHIFT 0
 
+/* not used in kernel */
 #define EUR_CR_BIF_3D_REQ_BASE              0x0CAC
 #define EUR_CR_BIF_3D_REQ_BASE_ADDR_MASK    0x0FF00000U
 #define EUR_CR_BIF_3D_REQ_BASE_ADDR_SHIFT   20
 
+/* not used in kernel */
 #define EUR_CR_BIF_ZLS_REQ_BASE             0x0CB0
 #define EUR_CR_BIF_ZLS_REQ_BASE_ADDR_MASK   0x0FF00000U
 #define EUR_CR_BIF_ZLS_REQ_BASE_ADDR_SHIFT  20
 
+/* not used in kernel */
 #define EUR_CR_2D_BLIT_STATUS               0x0E04
 #define EUR_CR_2D_BLIT_STATUS_COMPLETE_MASK 0x00FFFFFFU
 #define EUR_CR_2D_BLIT_STATUS_COMPLETE_SHIFT 0
 #define EUR_CR_2D_BLIT_STATUS_BUSY_MASK     0x01000000U
 #define EUR_CR_2D_BLIT_STATUS_BUSY_SHIFT    24
 
+/* not used in kernel */
 #define EUR_CR_2D_VIRTUAL_FIFO_0            0x0E10
 #define EUR_CR_2D_VIRTUAL_FIFO_0_ENABLE_MASK 0x00000001U
 #define EUR_CR_2D_VIRTUAL_FIFO_0_ENABLE_SHIFT 0
@@ -583,6 +633,7 @@
 #define EUR_CR_2D_VIRTUAL_FIFO_0_FLOWRATE_MUL_MASK 0x0000F000U
 #define EUR_CR_2D_VIRTUAL_FIFO_0_FLOWRATE_MUL_SHIFT 12
 
+/* not used in kernel */
 #define EUR_CR_2D_VIRTUAL_FIFO_1            0x0E14
 #define EUR_CR_2D_VIRTUAL_FIFO_1_MIN_ACC_MASK 0x00000FFFU
 #define EUR_CR_2D_VIRTUAL_FIFO_1_MIN_ACC_SHIFT 0
@@ -590,6 +641,8 @@
 #define EUR_CR_2D_VIRTUAL_FIFO_1_MAX_ACC_SHIFT 12
 #define EUR_CR_2D_VIRTUAL_FIFO_1_MIN_METRIC_MASK 0xFF000000U
 #define EUR_CR_2D_VIRTUAL_FIFO_1_MIN_METRIC_SHIFT 24
+
+/* not used in kernel */
 #define EUR_CR_USE_CODE_BASE(X)     (0x0A0C + (4 * (X)))
 #define EUR_CR_USE_CODE_BASE_ADDR_MASK      0x00FFFFFFU
 #define EUR_CR_USE_CODE_BASE_ADDR_SHIFT     0
