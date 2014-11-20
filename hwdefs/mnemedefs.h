@@ -27,6 +27,9 @@
 #ifndef _MNEMEDEFS_KM_H_
 #define _MNEMEDEFS_KM_H_
 
+/* #if defined(SGX_FEATURE_SYSTEM_CACHE)
+ * sgxreset.c
+ */
 #define MNE_CR_CTRL                         0x0D00
 #define MNE_CR_CTRL_BYP_CC_N_MASK           0x00010000U
 #define MNE_CR_CTRL_BYP_CC_N_SHIFT          16
@@ -46,10 +49,14 @@
 #define MNE_CR_CTRL_PAUSE_MASK              0x00000010U
 #define MNE_CR_CTRL_PAUSE_SHIFT             4
 #define MNE_CR_CTRL_PAUSE_SIGNED            0
+
+/* not used in kernel */
 #define MNE_CR_USE_INVAL                    0x0D04
 #define MNE_CR_USE_INVAL_ADDR_MASK          0xFFFFFFFFU
 #define MNE_CR_USE_INVAL_ADDR_SHIFT         0
 #define MNE_CR_USE_INVAL_ADDR_SIGNED        0
+
+/* not used in kernel */
 #define MNE_CR_STAT                         0x0D08
 #define MNE_CR_STAT_PAUSED_MASK             0x00000400U
 #define MNE_CR_STAT_PAUSED_SHIFT            10
@@ -57,6 +64,8 @@
 #define MNE_CR_STAT_READS_MASK              0x000003FFU
 #define MNE_CR_STAT_READS_SHIFT             0
 #define MNE_CR_STAT_READS_SIGNED            0
+
+/* not used in kernel */
 #define MNE_CR_STAT_STATS                   0x0D0C
 #define MNE_CR_STAT_STATS_RST_MASK          0x000FFFF0U
 #define MNE_CR_STAT_STATS_RST_SHIFT         4
@@ -64,18 +73,26 @@
 #define MNE_CR_STAT_STATS_SEL_MASK          0x0000000FU
 #define MNE_CR_STAT_STATS_SEL_SHIFT         0
 #define MNE_CR_STAT_STATS_SEL_SIGNED        0
+
+/* not used in kernel */
 #define MNE_CR_STAT_STATS_OUT               0x0D10
 #define MNE_CR_STAT_STATS_OUT_VALUE_MASK    0xFFFFFFFFU
 #define MNE_CR_STAT_STATS_OUT_VALUE_SHIFT   0
 #define MNE_CR_STAT_STATS_OUT_VALUE_SIGNED  0
+
+/* not used in kernel */
 #define MNE_CR_EVENT_STATUS                 0x0D14
 #define MNE_CR_EVENT_STATUS_INVAL_MASK      0x00000001U
 #define MNE_CR_EVENT_STATUS_INVAL_SHIFT     0
 #define MNE_CR_EVENT_STATUS_INVAL_SIGNED    0
+
+/* not used in kernel */
 #define MNE_CR_EVENT_CLEAR                  0x0D18
 #define MNE_CR_EVENT_CLEAR_INVAL_MASK       0x00000001U
 #define MNE_CR_EVENT_CLEAR_INVAL_SHIFT      0
 #define MNE_CR_EVENT_CLEAR_INVAL_SIGNED     0
+
+/* not used in kernel */
 #define MNE_CR_CTRL_INVAL                   0x0D20
 #define MNE_CR_CTRL_INVAL_PREQ_PDS_MASK     0x00000008U
 #define MNE_CR_CTRL_INVAL_PREQ_PDS_SHIFT    3
