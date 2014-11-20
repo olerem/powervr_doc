@@ -28,6 +28,7 @@
 #define _SGX540DEFS_KM_H_
 
 /* sgx540; sgx531; */
+/* InitClock; ui32ClkGateCtl comes from userspace? */
 #define EUR_CR_CLKGATECTL                   0x0000
 #define EUR_CR_CLKGATECTL_ISP_CLKG_MASK     0x00000003U
 #define EUR_CR_CLKGATECTL_ISP_CLKG_SHIFT    0
@@ -55,6 +56,7 @@
 #define EUR_CR_CLKGATECTL_SYSTEM_CLKG_SHIFT 28
 
 /* sgx540; sgx531; */
+/* same as EUR_CR_CLKGATECTL */
 #define EUR_CR_CLKGATECTL2                  0x0004
 #define EUR_CR_CLKGATECTL2_PBE_CLKG_MASK    0x00000003U
 #define EUR_CR_CLKGATECTL2_PBE_CLKG_SHIFT   0
@@ -80,6 +82,7 @@
 #define EUR_CR_CLKGATECTL2_MADD1_CLKG_SHIFT 20
 
 /* sgx540; sgx531; */
+/* not used in kernel */
 #define EUR_CR_CLKGATESTATUS                0x0008
 #define EUR_CR_CLKGATESTATUS_ISP_CLKS_MASK  0x00000001U
 #define EUR_CR_CLKGATESTATUS_ISP_CLKS_SHIFT 0
@@ -125,6 +128,7 @@
 #define EUR_CR_CLKGATESTATUS_TA_CLKS_SHIFT  20
 
 /* sgx540; sgx531; */
+/* not used in kernel */
 #define EUR_CR_CLKGATECTLOVR                0x000C
 #define EUR_CR_CLKGATECTLOVR_ISP_CLKO_MASK  0x00000003U
 #define EUR_CR_CLKGATECTLOVR_ISP_CLKO_SHIFT 0
@@ -148,17 +152,21 @@
 #define EUR_CR_CLKGATECTLOVR_TA_CLKO_SHIFT  18
 
 /* sgx540; sgx531 ???; */
+/* if reg exist then:
+ * if SGX531; EUR_CR_POWER = 1; else EUR_CR_POWER = 0 */
 #define EUR_CR_POWER                        0x001C
 #define EUR_CR_POWER_PIPE_DISABLE_MASK      0x00000001U
 #define EUR_CR_POWER_PIPE_DISABLE_SHIFT     0
 
 /* start sgx540; sgx531; */
+/* only informative use */
 #define EUR_CR_CORE_ID                      0x0020
 #define EUR_CR_CORE_ID_CONFIG_MASK          0x0000FFFFU
 #define EUR_CR_CORE_ID_CONFIG_SHIFT         0
 #define EUR_CR_CORE_ID_ID_MASK              0xFFFF0000U
 #define EUR_CR_CORE_ID_ID_SHIFT             16
 
+/* only informative use */
 #define EUR_CR_CORE_REVISION                0x0024
 #define EUR_CR_CORE_REVISION_MAINTENANCE_MASK 0x000000FFU
 #define EUR_CR_CORE_REVISION_MAINTENANCE_SHIFT 0
@@ -169,14 +177,17 @@
 #define EUR_CR_CORE_REVISION_DESIGNER_MASK  0xFF000000U
 #define EUR_CR_CORE_REVISION_DESIGNER_SHIFT 24
 
+/* not used */
 #define EUR_CR_DESIGNER_REV_FIELD1          0x0028
 #define EUR_CR_DESIGNER_REV_FIELD1_DESIGNER_REV_FIELD1_MASK 0xFFFFFFFFU
 #define EUR_CR_DESIGNER_REV_FIELD1_DESIGNER_REV_FIELD1_SHIFT 0
 
+/* not used */
 #define EUR_CR_DESIGNER_REV_FIELD2          0x002C
 #define EUR_CR_DESIGNER_REV_FIELD2_DESIGNER_REV_FIELD2_MASK 0xFFFFFFFFU
 #define EUR_CR_DESIGNER_REV_FIELD2_DESIGNER_REV_FIELD2_SHIFT 0
 
+/* SGXResetSoftReset */
 #define EUR_CR_SOFT_RESET                   0x0080
 #define EUR_CR_SOFT_RESET_BIF_RESET_MASK    0x00000001U
 #define EUR_CR_SOFT_RESET_BIF_RESET_SHIFT   0
