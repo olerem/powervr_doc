@@ -294,8 +294,12 @@
 #define EUR_CR_MASTER_BREAKPOINT_TRAP_INFO1_RNW_SHIFT 0
 #define EUR_CR_MASTER_BREAKPOINT_TRAP_INFO1_RNW_SIGNED 0
 
-/* bridged_sgx_bridge.c */
+/* bridged_sgx_bridge.c 
+ * #if defined(SGX_FEATURE_MP) && defined(FIX_HW_BRN_27270)
+ */
 #define EUR_CR_MASTER_CORE                  0x4000
+/*may have more undocumented bits. */
+/* enable one or more cores */
 #define EUR_CR_MASTER_CORE_ENABLE_MASK      0x00000003U
 #define EUR_CR_MASTER_CORE_ENABLE_SHIFT     0
 #define EUR_CR_MASTER_CORE_ENABLE_SIGNED    0
